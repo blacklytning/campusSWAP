@@ -5,6 +5,7 @@ import PrimeVue from 'primevue/config'
 import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import 'primevue/resources/themes/aura-dark-cyan/theme.css'
+import 'primeicons/primeicons.css'
 
 import Home from "./components/Home.vue"
 import Login from "./components/Login.vue"
