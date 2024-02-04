@@ -1,7 +1,3 @@
 <template>
-    <registerForm />
+    <router-view></router-view>
 </template>
-
-<script setup>
-    import registerForm from './components/registerForm.vue'
-</script>
