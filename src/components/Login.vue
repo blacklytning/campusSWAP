@@ -1,8 +1,7 @@
 <template>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-   <div class="back-overlay">
+    <div class="back-overlay">
         <h1>Login</h1>
-        <div class = "register-form">
+        <div class = "login-form">
             <InputGroup>
                 <InputGroupAddon>
                     <i class = "pi pi-user"></i> 
@@ -20,7 +19,7 @@
                 <Button v-show = "this.isPasswordVisible" @click = togglePassword icon class = "pi pi-eye-slash" />
             </InputGroup>
             <div class = all-btns>
-                <Button class = submit-btn label = Submit @click = "validateForm" />
+                <Button class = submit-btn label = Submit @click = "submitForm" />
                 <div class = links>
                     <Button class = forgot-pass-btn label = "Forgot Password" link />
                     <Button class = sign-up-btn label = "Sign up" @click = toRegister link />
@@ -35,11 +34,11 @@ import InputGroup from 'primevue/inputgroup'
 import InputGroupAddon from 'primevue/inputgroupaddon'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
-import Password from 'primevue/password'
+import axios from 'axios'
 
 export default{
     name: "Login",
-    components: { InputGroup, InputGroupAddon,  Button, InputText, Password },
+    components: { InputGroup, InputGroupAddon,  Button, InputText },
     data(){
         return {
             isPasswordVisible: false,
@@ -57,9 +56,13 @@ export default{
             this.$router.push("/register")
         },
 
-        validateForm(){
-            const arr = [this.passText, this.moodleID]
-            console.log(arr)
+        submitForm(){
+            axios.post("django_server_url_here", {
+                moodleID: this.moodleID,
+                password: this.passText,
+            })
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
         }
     }
 
@@ -83,7 +86,7 @@ export default{
     padding: 0;
 }
 
-.register-form{
+.login-form{
     padding: 50px 10px;
     border: 0.5px solid #ddd;
     border-radius: 10px;
