@@ -10,15 +10,7 @@
         </div>
         <div class = "search-summary" v-if = "searchTerm !== ''">Showing results for "{{ searchTerm }}"</div>
         <main class="item-card-container">
-            <itemCard />
-            <itemCard />
-            <itemCard />
-            <itemCard />
-            <itemCard />
-            <itemCard />
-            <itemCard />
-            <itemCard />
-            <itemCard />
+            <itemCard v-for = "listing in listings" :key = "listing.id" :products= "listing" />
         </main>
     </div>
 </template>
@@ -34,10 +26,22 @@ export default {
         return{
             searchTerm: '',
             filters: [],
+            listings: null // To store fetched listings
         }
+    },
+
+    created(){
+        axios.get("http://localhost:8000/products/all_listings")
+                .then(response => {
+                    this.listings = response.data;
+                    console.log(this.listings)
+                    
+                })
+                .catch(error => console.log(error));
     },
     components: { Filters, itemCard , pageHeader, pageNav },
     methods: {
+
         storeSearchTerm(searchTerm){
             this.searchTerm = searchTerm
             this.simpleSearch(this.searchTerm)

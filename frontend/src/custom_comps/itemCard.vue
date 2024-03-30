@@ -20,16 +20,16 @@
 <script>
 import Button from 'primevue/button'
 import Card from 'primevue/card'
+
     export default{
+        props: { product: Object },
+        
         data(){
             return{
                 image_urls: this.product.image_urls.replaceAll("'", "").replaceAll("[", "").replaceAll("]", "").replaceAll('"', "").split(","),
             }
         },
-        props: { 
-            product: Object, 
-            main_action: String 
-        },
+        created(){console.log(typeof image_urls)},
         name: "itemCard",
         components: { Card, Button },
         methods: {

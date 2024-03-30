@@ -64,11 +64,13 @@ def user_listings(request, moodleID):
 @csrf_exempt
 def all_listings(request):
     if request.method == "GET":
-        all_listings = ProductListing.objects.filter(admin_approval = True).values()
+        # all_listings = ProductListing.objects.filter(admin_approval = True).values()
+        all_listings = ProductListing.objects.values()
         indexed_listings = {}
+        
         for index, item in enumerate(all_listings):
             indexed_listings[index] = item
-        
+        print(indexed_listings)
         return JsonResponse({"allListings" : indexed_listings})
     return JsonResponse({"error" : "Couldn't get listings"})
 
